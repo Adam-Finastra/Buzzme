@@ -1,5 +1,5 @@
-import 'package:buzzme/view/onbording/preferemce_screen.dart';
-import 'package:buzzme/widgets/custom_widgets.dart';
+import 'package:buzzme/user/view/onbording/preferemce_screen.dart';
+import 'package:buzzme/user/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,7 +44,7 @@ class HexagonPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = AppColors.hexagonColor
+      ..color = AppColors.black
       ..style = PaintingStyle.fill;
 
     final hexSize = size.width * 0.15;
@@ -111,37 +111,30 @@ class IntroScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: screenHeight * 0.02),
+            SizedBox(height: screenHeight * 0.01),
 
             Text(
               'Oh Hey! Let\'s start with an intro.',
               style: GoogleFonts.poppins(
-                fontSize: screenWidth * 0.065,
+                fontSize: screenWidth * 0.050,
                 fontWeight: FontWeight.w600,
                 color: AppColors.black,
               ),
             ),
 
-            SizedBox(height: screenHeight * 0.04),
+            SizedBox(height: screenHeight * 0.02),
 
             // First name field
             Text(
               'Your first name',
               style: GoogleFonts.poppins(
-                fontSize: screenWidth * 0.04,
+                fontSize: screenWidth * 0.03,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
               ),
@@ -150,16 +143,16 @@ class IntroScreen extends StatelessWidget {
             CustomInputField(
               hintText: '',
               width: screenWidth * 0.88,
-              height: screenHeight * 0.065,
+              height: screenHeight * 0.045,
             ),
 
-            SizedBox(height: screenHeight * 0.03),
+            SizedBox(height: screenHeight * 0.02),
 
             // Birthday section
             Text(
               'Your birthday',
               style: GoogleFonts.poppins(
-                fontSize: screenWidth * 0.04,
+                fontSize: screenWidth * 0.03,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
               ),
@@ -174,34 +167,34 @@ class IntroScreen extends StatelessWidget {
                     Text(
                       'Month',
                       style: GoogleFonts.poppins(
-                        fontSize: screenWidth * 0.035,
-                        color: AppColors.textGray,
+                        fontSize: screenWidth * 0.030,
+                        color: AppColors.black,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.008),
                     CustomInputField(
                       hintText: '',
                       width: screenWidth * 0.25,
-                      height: screenHeight * 0.055,
+                      height: screenHeight * 0.040,
                     ),
                   ],
                 ),
-                SizedBox(width: screenWidth * 0.04),
+                SizedBox(width: screenWidth * 0.03),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'day',
                       style: GoogleFonts.poppins(
-                        fontSize: screenWidth * 0.035,
-                        color: AppColors.textGray,
+                        fontSize: screenWidth * 0.030,
+                        color: AppColors.black,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.008),
                     CustomInputField(
                       hintText: '',
                       width: screenWidth * 0.25,
-                      height: screenHeight * 0.055,
+                      height: screenHeight * 0.040,
                     ),
                   ],
                 ),
@@ -213,14 +206,14 @@ class IntroScreen extends StatelessWidget {
                       'year',
                       style: GoogleFonts.poppins(
                         fontSize: screenWidth * 0.035,
-                        color: AppColors.textGray,
+                        color: AppColors.black,
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.008),
                     CustomInputField(
                       hintText: '',
                       width: screenWidth * 0.25,
-                      height: screenHeight * 0.055,
+                      height: screenHeight * 0.040,
                     ),
                   ],
                 ),
@@ -233,19 +226,19 @@ class IntroScreen extends StatelessWidget {
             Text(
               'Description',
               style: GoogleFonts.poppins(
-                fontSize: screenWidth * 0.04,
+                fontSize: screenWidth * 0.03,
                 fontWeight: FontWeight.w500,
                 color: AppColors.black,
               ),
             ),
-            SizedBox(height: screenHeight * 0.015),
+            SizedBox(height: screenHeight * 0.010),
             Container(
               width: screenWidth * 0.88,
-              height: screenHeight * 0.25,
+              height: screenHeight * 0.20,
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.textGray.withOpacity(0.3)),
+                border: Border.all(color: AppColors.black),
               ),
               child: TextField(
                 maxLines: null,
@@ -262,17 +255,17 @@ class IntroScreen extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Container(
-                width: screenWidth * 0.15,
-                height: screenWidth * 0.15,
+                width: screenWidth * 0.10,
+                height: screenWidth * 0.10,
                 decoration: const BoxDecoration(
                   color: AppColors.primaryYellow,
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
                   icon: Icon(
-                    Icons.arrow_forward,
+                    Icons.arrow_forward_ios,
                     color: AppColors.black,
-                    size: screenWidth * 0.07,
+                    size: screenWidth * 0.04,
                   ),
                   onPressed: () {
                     Navigator.push(
