@@ -1,3 +1,4 @@
+import 'package:buzzme/admin/bottombar.dart';
 import 'package:buzzme/user/controller/provider.dart';
 import 'package:buzzme/splash_screen.dart';
 import 'package:buzzme/user/view/auth/login_screen.dart';

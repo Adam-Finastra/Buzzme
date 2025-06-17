@@ -40,7 +40,11 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         // Keep for safety, but aim to remove scroll if possible
         child: Padding(

@@ -111,7 +111,11 @@ class IntroScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
         child: Column(

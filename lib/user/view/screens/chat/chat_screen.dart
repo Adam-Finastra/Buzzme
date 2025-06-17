@@ -1,3 +1,4 @@
+
 import 'package:buzzme/user/controller/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,15 +82,19 @@ class ChatsScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    // --- Responsive Scaling Factor Calculation ---
-    const double baseScreenHeight = 812.0; // iPhone 11 height, good baseline
+    // --- Updated Responsive Scaling Factor Calculation for iPhone 12 Pro ---
+    const double baseScreenHeight = 844.0; // iPhone 12 Pro height
     double scaleFactor = screenHeight / baseScreenHeight;
     const double minScaleFactor =
-        0.8; // Prevent text/widgets from becoming too small
+        0.75; // Reduced from 0.8 for smaller UI elements
+    const double maxScaleFactor = 0.95; // Added max scale to prevent oversizing
+
     if (scaleFactor < minScaleFactor) {
       scaleFactor = minScaleFactor;
+    } else if (scaleFactor > maxScaleFactor) {
+      scaleFactor = maxScaleFactor;
     }
-    // --- End Responsive Scaling Factor Calculation ---
+    // --- End Updated Responsive Scaling Factor Calculation ---
 
     final chatUsers = getDemoUsers();
 
@@ -101,17 +106,20 @@ class ChatsScreen extends StatelessWidget {
             // Header
             Padding(
               padding: EdgeInsets.fromLTRB(
-                screenWidth * 0.05 * scaleFactor,
-                screenHeight * 0.02 * scaleFactor,
-                screenWidth * 0.05 * scaleFactor,
-                screenHeight * 0.01 * scaleFactor,
+                screenWidth * 0.04 * scaleFactor, // Reduced from 0.05
+                screenHeight * 0.015 * scaleFactor, // Reduced from 0.02
+                screenWidth * 0.04 * scaleFactor, // Reduced from 0.05
+                screenHeight * 0.008 * scaleFactor, // Reduced from 0.01
               ),
               child: Row(
                 children: [
                   Text(
                     'Chats',
                     style: GoogleFonts.poppins(
-                      fontSize: screenWidth * 0.06 * scaleFactor,
+                      fontSize:
+                          screenWidth *
+                          0.055 *
+                          scaleFactor, // Reduced from 0.06
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                     ),
@@ -124,8 +132,10 @@ class ChatsScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.04 * scaleFactor,
-                  vertical: screenHeight * 0.01 * scaleFactor,
+                  horizontal:
+                      screenWidth * 0.035 * scaleFactor, // Reduced from 0.04
+                  vertical:
+                      screenHeight * 0.008 * scaleFactor, // Reduced from 0.01
                 ),
                 itemCount: chatUsers.length,
                 itemBuilder: (context, index) {
@@ -176,21 +186,27 @@ class ChatListItem extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: screenHeight * 0.015 * scaleFactor),
-        padding: EdgeInsets.all(screenWidth * 0.04 * scaleFactor),
+        margin: EdgeInsets.only(
+          bottom: screenHeight * 0.012 * scaleFactor,
+        ), // Reduced from 0.015
+        padding: EdgeInsets.all(
+          screenWidth * 0.035 * scaleFactor,
+        ), // Reduced from 0.04
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(screenWidth * 0.08 * scaleFactor),
+          borderRadius: BorderRadius.circular(
+            screenWidth * 0.07 * scaleFactor,
+          ), // Reduced from 0.08
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.03),
-              blurRadius: 8 * scaleFactor, // Scaled blur radius
-              offset: Offset(0, 2 * scaleFactor), // Scaled offset
+              blurRadius: 6 * scaleFactor, // Reduced from 8
+              offset: Offset(0, 1.5 * scaleFactor), // Reduced from 2
             ),
           ],
           border: Border.all(
             color: AppColors.lightGray.withOpacity(0.3),
-            width: 1 * scaleFactor, // Scaled border width
+            width: 0.8 * scaleFactor, // Reduced from 1
           ),
         ),
         child: Row(
@@ -199,33 +215,42 @@ class ChatListItem extends StatelessWidget {
             Stack(
               children: [
                 CircleAvatar(
-                  radius: screenWidth * 0.065 * scaleFactor, // Scaled radius
+                  radius:
+                      screenWidth * 0.055 * scaleFactor, // Reduced from 0.065
                   backgroundImage: NetworkImage(chatUser.avatarUrl),
                   backgroundColor: AppColors.lightGray,
                 ),
                 if (chatUser.isOnline)
                   Positioned(
                     bottom:
-                        screenWidth * 0.005 * scaleFactor, // Scaled position
-                    right: screenWidth * 0.005 * scaleFactor, // Scaled position
+                        screenWidth * 0.003 * scaleFactor, // Reduced from 0.005
+                    right:
+                        screenWidth * 0.003 * scaleFactor, // Reduced from 0.005
                     child: Container(
-                      width: screenWidth * 0.035 * scaleFactor, // Scaled width
+                      width:
+                          screenWidth *
+                          0.03 *
+                          scaleFactor, // Reduced from 0.035
                       height:
-                          screenWidth * 0.035 * scaleFactor, // Scaled height
+                          screenWidth *
+                          0.03 *
+                          scaleFactor, // Reduced from 0.035
                       decoration: BoxDecoration(
                         color: Colors.green,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: AppColors.white,
-                          width: 2 * scaleFactor,
-                        ), // Scaled border
+                          width: 1.5 * scaleFactor, // Reduced from 2
+                        ),
                       ),
                     ),
                   ),
               ],
             ),
 
-            SizedBox(width: screenWidth * 0.04 * scaleFactor), // Scaled spacing
+            SizedBox(
+              width: screenWidth * 0.035 * scaleFactor,
+            ), // Reduced from 0.04
             // Chat info
             Expanded(
               child: Column(
@@ -235,20 +260,27 @@ class ChatListItem extends StatelessWidget {
                     chatUser.name,
                     style: GoogleFonts.poppins(
                       fontSize:
-                          screenWidth * 0.045 * scaleFactor, // Scaled font size
+                          screenWidth *
+                          0.04 *
+                          scaleFactor, // Reduced from 0.045
                       fontWeight: FontWeight.w600,
                       color: AppColors.black,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
-                    height: screenHeight * 0.003 * scaleFactor,
-                  ), // Scaled spacing
+                    height:
+                        screenHeight *
+                        0.002 *
+                        scaleFactor, // Reduced from 0.003
+                  ),
                   Text(
                     chatUser.lastMessage,
                     style: GoogleFonts.poppins(
                       fontSize:
-                          screenWidth * 0.035 * scaleFactor, // Scaled font size
+                          screenWidth *
+                          0.032 *
+                          scaleFactor, // Reduced from 0.035
                       color: AppColors.textGray,
                       fontWeight: FontWeight.w400,
                     ),
@@ -378,11 +410,20 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
     final screenWidth = screenSize.width;
     final screenHeight = screenSize.height;
 
-    // Responsive scale factor based on screen width
-    final scaleFactor = screenWidth / 375; // Base width 375 (iPhone size)
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    // Updated responsive scale factor for iPhone 12 Pro
+    const double baseScreenHeight = 844.0; // iPhone 12 Pro height
+    double scaleFactor = screenHeight / baseScreenHeight;
+    const double minScaleFactor = 0.75; // Reduced for smaller UI elements
+    const double maxScaleFactor = 0.95; // Added max scale
+
+    if (scaleFactor < minScaleFactor) {
+      scaleFactor = minScaleFactor;
+    } else if (scaleFactor > maxScaleFactor) {
+      scaleFactor = maxScaleFactor;
+    }
+
     final responsiveScale =
-        scaleFactor * 0.9; // Slight reduction for better fit
+        scaleFactor * 0.85; // Further reduced for compact design
 
     return Scaffold(
       backgroundColor: lightBackground,
@@ -400,8 +441,14 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
               child: ListView.builder(
                 controller: scrollController,
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.04 * responsiveScale,
-                  vertical: screenHeight * 0.01 * responsiveScale,
+                  horizontal:
+                      screenWidth *
+                      0.035 *
+                      responsiveScale, // Reduced from 0.04
+                  vertical:
+                      screenHeight *
+                      0.008 *
+                      responsiveScale, // Reduced from 0.01
                 ),
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
@@ -426,14 +473,18 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
 
   Widget _buildHeader(double screenWidth, double responsiveScale) {
     return Container(
-      padding: EdgeInsets.all(screenWidth * 0.04 * responsiveScale),
+      padding: EdgeInsets.all(
+        screenWidth * 0.035 * responsiveScale,
+      ), // Reduced from 0.04
       child: Row(
         children: [
           // Back button
           GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Container(
-              padding: EdgeInsets.all(screenWidth * 0.025 * responsiveScale),
+              padding: EdgeInsets.all(
+                screenWidth * 0.02 * responsiveScale,
+              ), // Reduced from 0.025
               decoration: const BoxDecoration(
                 color: primaryYellow,
                 shape: BoxShape.circle,
@@ -441,16 +492,20 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
               child: Icon(
                 Icons.arrow_back_ios,
                 color: black,
-                size: screenWidth * 0.05 * responsiveScale,
+                size:
+                    screenWidth * 0.045 * responsiveScale, // Reduced from 0.05
               ),
             ),
           ),
-          SizedBox(width: screenWidth * 0.04 * responsiveScale),
+          SizedBox(
+            width: screenWidth * 0.035 * responsiveScale,
+          ), // Reduced from 0.04
           // Title
           Text(
             'Message',
             style: GoogleFonts.poppins(
-              fontSize: screenWidth * 0.055 * responsiveScale,
+              fontSize:
+                  screenWidth * 0.05 * responsiveScale, // Reduced from 0.055
               fontWeight: FontWeight.bold,
               color: black,
             ),
@@ -468,31 +523,34 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.04 * responsiveScale,
-        vertical: screenHeight * 0.015 * responsiveScale,
+        horizontal: screenWidth * 0.035 * responsiveScale, // Reduced from 0.04
+        vertical: screenHeight * 0.012 * responsiveScale, // Reduced from 0.015
       ),
       margin: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.04 * responsiveScale,
-        vertical: screenHeight * 0.01 * responsiveScale,
+        horizontal: screenWidth * 0.035 * responsiveScale, // Reduced from 0.04
+        vertical: screenHeight * 0.008 * responsiveScale, // Reduced from 0.01
       ),
       decoration: BoxDecoration(
         color: lightGray.withOpacity(0.6),
         borderRadius: BorderRadius.circular(
-          screenWidth * 0.06 * responsiveScale,
+          screenWidth * 0.05 * responsiveScale, // Reduced from 0.06
         ),
       ),
       child: Row(
         children: [
           CircleAvatar(
-            radius: screenWidth * 0.045 * responsiveScale,
+            radius: screenWidth * 0.04 * responsiveScale, // Reduced from 0.045
             backgroundImage: NetworkImage(widget.chatUser.avatarUrl),
             backgroundColor: lightGray,
           ),
-          SizedBox(width: screenWidth * 0.03 * responsiveScale),
+          SizedBox(
+            width: screenWidth * 0.025 * responsiveScale,
+          ), // Reduced from 0.03
           Text(
             widget.chatUser.name,
             style: GoogleFonts.poppins(
-              fontSize: screenWidth * 0.045 * responsiveScale,
+              fontSize:
+                  screenWidth * 0.04 * responsiveScale, // Reduced from 0.045
               fontWeight: FontWeight.w600,
               color: black,
             ),
@@ -512,7 +570,7 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
 
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: screenHeight * 0.008 * responsiveScale,
+        vertical: screenHeight * 0.006 * responsiveScale, // Reduced from 0.008
       ),
       child: Row(
         mainAxisAlignment: isMe
@@ -522,32 +580,41 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
         children: [
           if (!isMe) ...[
             CircleAvatar(
-              radius: screenWidth * 0.035 * responsiveScale,
+              radius:
+                  screenWidth * 0.03 * responsiveScale, // Reduced from 0.035
               backgroundImage: NetworkImage(widget.chatUser.avatarUrl),
               backgroundColor: lightGray,
             ),
-            SizedBox(width: screenWidth * 0.02 * responsiveScale),
+            SizedBox(
+              width: screenWidth * 0.015 * responsiveScale,
+            ), // Reduced from 0.02
           ],
 
           Flexible(
             child: Container(
               constraints: BoxConstraints(
-                maxWidth: screenWidth * 0.7 * responsiveScale,
+                maxWidth:
+                    screenWidth * 0.68 * responsiveScale, // Reduced from 0.7
               ),
               padding: EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.04 * responsiveScale,
-                vertical: screenHeight * 0.012 * responsiveScale,
+                horizontal:
+                    screenWidth * 0.035 * responsiveScale, // Reduced from 0.04
+                vertical:
+                    screenHeight * 0.01 * responsiveScale, // Reduced from 0.012
               ),
               decoration: BoxDecoration(
                 color: isMe ? primaryYellow : darkGray,
                 borderRadius: BorderRadius.circular(
-                  screenWidth * 0.05 * responsiveScale,
+                  screenWidth * 0.045 * responsiveScale, // Reduced from 0.05
                 ),
               ),
               child: Text(
                 message.text,
                 style: GoogleFonts.poppins(
-                  fontSize: screenWidth * 0.035 * responsiveScale,
+                  fontSize:
+                      screenWidth *
+                      0.032 *
+                      responsiveScale, // Reduced from 0.035
                   color: isMe ? black : white,
                   fontWeight: FontWeight.w400,
                   height: 1.3,
@@ -557,9 +624,12 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
           ),
 
           if (isMe) ...[
-            SizedBox(width: screenWidth * 0.02 * responsiveScale),
+            SizedBox(
+              width: screenWidth * 0.015 * responsiveScale,
+            ), // Reduced from 0.02
             CircleAvatar(
-              radius: screenWidth * 0.035 * responsiveScale,
+              radius:
+                  screenWidth * 0.03 * responsiveScale, // Reduced from 0.035
               backgroundImage: const NetworkImage(
                 'https://picsum.photos/100/100?random=me',
               ),
@@ -578,8 +648,8 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
   ) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: screenWidth * 0.04 * responsiveScale,
-        vertical: screenHeight * 0.015 * responsiveScale,
+        horizontal: screenWidth * 0.035 * responsiveScale, // Reduced from 0.04
+        vertical: screenHeight * 0.012 * responsiveScale, // Reduced from 0.015
       ),
       decoration: BoxDecoration(
         color: lightBackground,
@@ -592,26 +662,34 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.04 * responsiveScale,
-                vertical: screenHeight * 0.012 * responsiveScale,
+                horizontal:
+                    screenWidth * 0.035 * responsiveScale, // Reduced from 0.04
+                vertical:
+                    screenHeight * 0.01 * responsiveScale, // Reduced from 0.012
               ),
               decoration: BoxDecoration(
                 color: darkGray,
                 borderRadius: BorderRadius.circular(
-                  screenWidth * 0.08 * responsiveScale,
+                  screenWidth * 0.07 * responsiveScale, // Reduced from 0.08
                 ),
               ),
               child: TextField(
                 controller: messageController,
                 style: GoogleFonts.poppins(
                   color: white,
-                  fontSize: screenWidth * 0.038 * responsiveScale,
+                  fontSize:
+                      screenWidth *
+                      0.035 *
+                      responsiveScale, // Reduced from 0.038
                 ),
                 decoration: InputDecoration(
                   hintText: 'Type a message',
                   hintStyle: GoogleFonts.poppins(
                     color: white.withOpacity(0.7),
-                    fontSize: screenWidth * 0.038 * responsiveScale,
+                    fontSize:
+                        screenWidth *
+                        0.035 *
+                        responsiveScale, // Reduced from 0.038
                   ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
@@ -624,12 +702,16 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
             ),
           ),
 
-          SizedBox(width: screenWidth * 0.03 * responsiveScale),
+          SizedBox(
+            width: screenWidth * 0.025 * responsiveScale,
+          ), // Reduced from 0.03
 
           GestureDetector(
             onTap: _sendMessage,
             child: Container(
-              padding: EdgeInsets.all(screenWidth * 0.03 * responsiveScale),
+              padding: EdgeInsets.all(
+                screenWidth * 0.025 * responsiveScale,
+              ), // Reduced from 0.03
               decoration: const BoxDecoration(
                 color: primaryYellow,
                 shape: BoxShape.circle,
@@ -637,7 +719,8 @@ class _ChatMessageScreenState extends State<ChatMessageScreen> {
               child: Icon(
                 Icons.send,
                 color: black,
-                size: screenWidth * 0.05 * responsiveScale,
+                size:
+                    screenWidth * 0.045 * responsiveScale, // Reduced from 0.05
               ),
             ),
           ),

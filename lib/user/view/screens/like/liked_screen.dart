@@ -33,21 +33,21 @@ class LikedScreen extends StatelessWidget {
               // ),
 
               // NEW: Background image for LikedScreen
-              // Positioned(
-              //   left: -screenWidth * 0.25,
-              //   bottom: screenHeight * 0.08,
-              //   child: SizedBox(
-              //     width: screenWidth * 1.5,
-              //     height: screenHeight * 1,
-              //     child: Image.network(
-              //       // Use Image.asset for local assets
-              //       'assets/light__login-.png',
-              //       fit: BoxFit.contain, // Adjust fit as needed
-              //       alignment:
-              //           Alignment.centerLeft, // Adjust alignment as needed
-              //     ),
-              //   ),
-              // ),
+              Positioned(
+                left: -screenWidth * 0.25,
+                bottom: screenHeight * 0.08,
+                child: SizedBox(
+                  width: screenWidth * 1.5,
+                  height: screenHeight * 1,
+                  child: Image.asset(
+                    // Use Image.asset for local assets
+                    'assets/light__login-.png',
+                    fit: BoxFit.contain, // Adjust fit as needed
+                    alignment:
+                        Alignment.centerLeft, // Adjust alignment as needed
+                  ),
+                ),
+              ),
               Column(
                 children: [
                   // Header
@@ -256,7 +256,7 @@ class LikedProfileCard extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               // Profile image
-              Image.network(
+              Image.asset(
                 profile
                     .imageUrl, // Use the actual profile image URL instead of random
                 fit: BoxFit.cover,
@@ -272,21 +272,21 @@ class LikedProfileCard extends StatelessWidget {
                     ),
                   );
                 },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    color: Colors.grey[300],
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                            : null,
-                        color: AppColors.primaryYellow,
-                      ),
-                    ),
-                  );
-                },
+                // loadingBuilder: (context, child, loadingProgress) {
+                //   if (loadingProgress == null) return child;
+                //   return Container(
+                //     color: Colors.grey[300],
+                //     child: Center(
+                //       child: CircularProgressIndicator(
+                //         value: loadingProgress.expectedTotalBytes != null
+                //             ? loadingProgress.cumulativeBytesLoaded /
+                //                   loadingProgress.expectedTotalBytes!
+                //             : null,
+                //         color: AppColors.primaryYellow,
+                //       ),
+                //     ),
+                //   );
+                // },
               ),
 
               // Gradient overlay
@@ -407,21 +407,21 @@ class ProfileDetailScreen extends StatelessWidget {
           child: Stack(
             children: [
               // Hexagon background (existing)
-              // Positioned(
-              //   left: -screenWidth * 0.25,
-              //   bottom: screenHeight * 0.08,
-              //   child: SizedBox(
-              //     width: screenWidth * 1.5,
-              //     height: screenHeight * 1,
-              //     child: Image.network(
-              //       // Use Image.asset for local assets
-              //       'assets/light__login-.png',
-              //       fit: BoxFit.contain, // Adjust fit as needed
-              //       alignment:
-              //           Alignment.centerLeft, // Adjust alignment as needed
-              //     ),
-              //   ),
-              // ),
+              Positioned(
+                left: -screenWidth * 0.25,
+                bottom: screenHeight * 0.08,
+                child: SizedBox(
+                  width: screenWidth * 1.5,
+                  height: screenHeight * 1,
+                  child: Image.asset(
+                    // Use Image.asset for local assets
+                    'assets/light__login-.png',
+                    fit: BoxFit.contain, // Adjust fit as needed
+                    alignment:
+                        Alignment.centerLeft, // Adjust alignment as needed
+                  ),
+                ),
+              ),
 
               // NEW: Background image for ProfileDetailScreen
               SingleChildScrollView(
@@ -477,7 +477,7 @@ class ProfileDetailScreen extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               height: double.infinity,
-                              child: Image.network(
+                              child: Image.asset(
                                 profile
                                     .imageUrl, // Use the actual profile image URL
                                 fit: BoxFit.cover,
@@ -493,27 +493,27 @@ class ProfileDetailScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Container(
-                                        color: Colors.grey[300],
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            value:
-                                                loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                          .cumulativeBytesLoaded /
-                                                      loadingProgress
-                                                          .expectedTotalBytes!
-                                                : null,
-                                            color: AppColors.primaryYellow,
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                // loadingBuilder:
+                                //     (context, child, loadingProgress) {
+                                //       if (loadingProgress == null) return child;
+                                //       return Container(
+                                //         color: Colors.grey[300],
+                                //         child: Center(
+                                //           child: CircularProgressIndicator(
+                                //             value:
+                                //                 loadingProgress
+                                //                         .expectedTotalBytes !=
+                                //                     null
+                                //                 ? loadingProgress
+                                //                           .cumulativeBytesLoaded /
+                                //                       loadingProgress
+                                //                           .expectedTotalBytes!
+                                //                 : null,
+                                //             color: AppColors.primaryYellow,
+                                //           ),
+                                //         ),
+                                //       );
+                                //   },
                               ),
                             ),
 

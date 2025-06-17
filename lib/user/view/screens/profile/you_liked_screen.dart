@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-
-
 class YouLikedScreen extends StatelessWidget {
   YouLikedScreen({super.key});
 
@@ -31,7 +29,7 @@ class YouLikedScreen extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
     final screenHeight = mediaQuery.size.height;
-    final isTablet = screenWidth > 600;
+    // final isTablet = screenWidth > 600; // Moved this inside the builder where it's used
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
@@ -39,156 +37,187 @@ class YouLikedScreen extends StatelessWidget {
         child: Consumer<AppProvider>(
           builder: (context, provider, child) {
             final likedProfiles = provider.likedProfiles;
+            final bool isTablet = screenWidth > 600; // Redefine here
 
-            return Column(
+            return Stack(
               children: [
-                // Header section
-                Container(
-                  padding: EdgeInsets.all(
-                    getResponsiveSize(context, screenWidth * 0.05),
+                // Hexagon background
+                Positioned(
+                  left: -screenWidth * 0.1, // Adjust position as needed
+                  top: -screenHeight * 0.2, // Adjust position as needed
+                  child: HexagonBackground(
+                    size: screenWidth * 1.5, // Adjust size as needed
+                    assetPath:
+                        'assets/light__login-.png', // Your background image asset
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: getResponsiveSize(context, screenWidth * 0.12),
-                        height: getResponsiveSize(context, screenWidth * 0.12),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryYellow,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              spreadRadius: 1,
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back_ios,
-                            size: getResponsiveSize(
+                ),
+                Column(
+                  children: [
+                    // Header section
+                    Container(
+                      padding: EdgeInsets.all(
+                        getResponsiveSize(context, screenWidth * 0.05),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: getResponsiveSize(
                               context,
-                              screenWidth * 0.06,
+                              screenWidth * 0.12,
                             ),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          color: Colors.black,
-                          padding: EdgeInsets.zero,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Title and subtitle section
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getResponsiveSize(context, screenWidth * 0.05),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'You liked',
-                        style: GoogleFonts.poppins(
-                          fontSize: getResponsiveSize(
-                            context,
-                            screenWidth * 0.04,
-                          ),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(
-                        height: getResponsiveSize(context, screenHeight * 0.01),
-                      ),
-                      Text(
-                        'Check out people who you liked (${likedProfiles.length})',
-                        style: GoogleFonts.poppins(
-                          fontSize: getResponsiveSize(
-                            context,
-                            screenWidth * 0.04,
-                          ),
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(
-                  height: getResponsiveSize(context, screenHeight * 0.03),
-                ),
-
-                // Grid of liked profiles
-                Expanded(
-                  child: likedProfiles.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'No liked profiles yet',
-                                style: GoogleFonts.poppins(
-                                  fontSize: getResponsiveSize(context, 10),
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[600],
+                            height: getResponsiveSize(
+                              context,
+                              screenWidth * 0.12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryYellow,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.15),
+                                  spreadRadius: 1,
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                size: getResponsiveSize(
+                                  context,
+                                  screenWidth * 0.06,
                                 ),
                               ),
-                              SizedBox(height: getResponsiveSize(context, 4)),
-                              Text(
-                                'Start swiping to see your matches here!',
-                                style: GoogleFonts.poppins(
-                                  fontSize: getResponsiveSize(context, 8),
-                                  color: Colors.grey[500],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getResponsiveSize(
-                              context,
-                              screenWidth * 0.05,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              color: Colors.black,
+                              padding: EdgeInsets.zero,
                             ),
-                            vertical: getResponsiveSize(
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Title and subtitle section
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getResponsiveSize(
+                          context,
+                          screenWidth * 0.05,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'You liked',
+                            style: GoogleFonts.poppins(
+                              fontSize: getResponsiveSize(
+                                context,
+                                screenWidth * 0.04,
+                              ),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            height: getResponsiveSize(
                               context,
                               screenHeight * 0.01,
                             ),
                           ),
-                          child: GridView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: isTablet ? 3 : 2,
-                                  crossAxisSpacing: getResponsiveSize(
-                                    context,
-                                    screenWidth * 0.03,
-                                  ),
-                                  mainAxisSpacing: getResponsiveSize(
-                                    context,
-                                    screenWidth * 0.03,
-                                  ),
-                                  childAspectRatio: 0.75,
-                                ),
-                            itemCount: likedProfiles.length,
-                            itemBuilder: (context, index) {
-                              final profile = likedProfiles[index];
-                              return LikedProfileCard(
-                                profile: profile,
-                                screenWidth: screenWidth,
-                                onRemove: () {
-                                  provider.removeLikedProfile(profile.id);
-                                },
-                              );
-                            },
+                          Text(
+                            'Check out people who you liked (${likedProfiles.length})',
+                            style: GoogleFonts.poppins(
+                              fontSize: getResponsiveSize(
+                                context,
+                                screenWidth * 0.04,
+                              ),
+                              color: Colors.grey.shade600,
+                            ),
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: getResponsiveSize(context, screenHeight * 0.03),
+                    ),
+
+                    // Grid of liked profiles
+                    Expanded(
+                      child: likedProfiles.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'No liked profiles yet',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: getResponsiveSize(context, 10),
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: getResponsiveSize(context, 4),
+                                  ),
+                                  Text(
+                                    'Start swiping to see your matches here!',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: getResponsiveSize(context, 8),
+                                      color: Colors.grey[500],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: getResponsiveSize(
+                                  context,
+                                  screenWidth * 0.05,
+                                ),
+                                vertical: getResponsiveSize(
+                                  context,
+                                  screenHeight * 0.01,
+                                ),
+                              ),
+                              child: GridView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: isTablet
+                                          ? 3
+                                          : 2, // 'isTablet' is now accessible here
+                                      crossAxisSpacing: getResponsiveSize(
+                                        context,
+                                        screenWidth * 0.03,
+                                      ),
+                                      mainAxisSpacing: getResponsiveSize(
+                                        context,
+                                        screenWidth * 0.03,
+                                      ),
+                                      childAspectRatio: 0.75,
+                                    ),
+                                itemCount: likedProfiles.length,
+                                itemBuilder: (context, index) {
+                                  final profile = likedProfiles[index];
+                                  return LikedProfileCard(
+                                    profile: profile,
+                                    screenWidth: screenWidth,
+                                    onRemove: () {
+                                      provider.removeLikedProfile(profile.id);
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
               ],
             );
@@ -257,14 +286,17 @@ class _LikedProfileCardState extends State<LikedProfileCard>
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                   widget.onRemove?.call();
                 },
-                child: Text('Remove', style: TextStyle(color: Colors.red)),
+                child: const Text(
+                  'Remove',
+                  style: TextStyle(color: Colors.red),
+                ),
               ),
             ],
           ),
@@ -292,34 +324,11 @@ class _LikedProfileCardState extends State<LikedProfileCard>
                 child: Stack(
                   children: [
                     // Profile image
-                    Image.network(
+                    Image.asset(
                       widget.profile.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(
-                              widget.screenWidth * 0.05,
-                            ),
-                          ),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                  : null,
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.amber,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           decoration: BoxDecoration(
@@ -398,24 +407,6 @@ class _LikedProfileCardState extends State<LikedProfileCard>
                         ],
                       ),
                     ),
-
-                    // Like indicator
-                    // Positioned(
-                    //   top: 8,
-                    //   right: 8,
-                    //   child: Container(
-                    //     padding: EdgeInsets.all(4),
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.red,
-                    //       shape: BoxShape.circle,
-                    //     ),
-                    //     child: Icon(
-                    //       Icons.favorite,
-                    //       color: Colors.white,
-                    //       size: widget.screenWidth * 0.04,
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

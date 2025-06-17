@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                       topRight: Radius.circular(14),
                     ),
                     image: const DecorationImage(
-                      image: NetworkImage('assets/profile.png'),
+                      image: AssetImage('assets/profile.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -267,7 +267,7 @@ class ProfileScreen extends StatelessWidget {
                                   context,
                                   50,
                                 ), // Reduced
-                                backgroundImage: const NetworkImage(
+                                backgroundImage: const AssetImage(
                                   'assets/profile.png',
                                 ),
                               ),
@@ -413,40 +413,46 @@ class ProfileScreen extends StatelessWidget {
                     SizedBox(height: isTablet ? 20 : 16), // Reduced spacing
                     // Interests section - FIXED WIDTH TO MATCH BIO
                     Container(
-                      width: double.infinity,
-                      constraints: const BoxConstraints(maxWidth: 500),
+                      width: screenWidth * 1,
+                      constraints: const BoxConstraints(maxWidth: 400),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Interests',
-                            style: GoogleFonts.poppins(
-                              fontSize: getResponsiveSize(
-                                context,
-                                13,
-                              ), // Reduced from 16
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Interests',
+                              style: GoogleFonts.poppins(
+                                fontSize: getResponsiveSize(
+                                  context,
+                                  13,
+                                ), // Reduced from 16
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: getResponsiveSize(context, 6),
                           ), // Reduced
-                          Text(
-                            'Get Specific About The Things You Love.',
-                            style: GoogleFonts.poppins(
-                              fontSize: getResponsiveSize(
-                                context,
-                                10,
-                              ), // Reduced from 12
-                              color: AppColors.black,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Get Specific About The Things You Love.',
+                              style: GoogleFonts.poppins(
+                                fontSize: getResponsiveSize(
+                                  context,
+                                  10,
+                                ), // Reduced from 12
+                                color: AppColors.black,
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: getResponsiveSize(context, 12),
                           ), // Reduced
                           Container(
-                            width: double.infinity,
+                            width: screenWidth * 0.90,
                             padding: EdgeInsets.all(
                               getResponsiveSize(context, 12), // Reduced from 16
                             ),
@@ -503,20 +509,23 @@ class ProfileScreen extends StatelessWidget {
                     SizedBox(height: isTablet ? 20 : 16), // Reduced spacing
                     // Bio section - SAME WIDTH AS INTERESTS
                     Container(
-                      width: double.infinity,
-                      constraints: const BoxConstraints(maxWidth: 500),
+                      width: screenWidth * 0.90,
+                      constraints: const BoxConstraints(maxWidth: 3200),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Bio',
-                            style: GoogleFonts.poppins(
-                              fontSize: getResponsiveSize(
-                                context,
-                                13, // SAME AS INTERESTS TITLE
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Bio',
+                              style: GoogleFonts.poppins(
+                                fontSize: getResponsiveSize(
+                                  context,
+                                  13, // SAME AS INTERESTS TITLE
+                                ),
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
                               ),
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black,
                             ),
                           ),
                           SizedBox(
@@ -932,7 +941,7 @@ class EditProfileScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10), // Reduced
                             image: const DecorationImage(
-                              image: NetworkImage('assets/profile.png'),
+                              image: AssetImage('assets/profile.png'),
                               fit: BoxFit.cover,
                             ),
                             boxShadow: [

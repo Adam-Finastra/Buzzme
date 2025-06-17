@@ -1,40 +1,40 @@
 import 'package:buzzme/admin/bottombar.dart';
 import 'package:buzzme/user/view/screens/bottombar.dart';
 import 'package:buzzme/user/widgets/button.dart';
-import 'package:buzzme/user/widgets/custom_widgets.dart'; // Assuming CustomInputField and SocialButton are defined here
+import 'package:buzzme/user/widgets/custom_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SocialButton extends StatelessWidget {
   final IconData icon;
   final double size;
-  final VoidCallback? onPressed; // Add this
+  final VoidCallback? onPressed;
 
   const SocialButton({
     Key? key,
     required this.icon,
     required this.size,
-    this.onPressed, // Initialize it
+    this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // Use InkWell or GestureDetector for tap
       onTap: onPressed,
+      borderRadius: BorderRadius.circular(size / 2),
       child: Container(
         width: size,
         height: size,
-        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: AppColors.primaryYellow,
+          shape: BoxShape.circle,
+        ),
         child: Icon(icon, color: Colors.black, size: size * 0.6),
       ),
     );
   }
 }
 
-// --- Placeholder for your AdminBottomBar (replace with your actual code) ---
-
-// --- Your modified LoginScreen ---
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -57,225 +57,315 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final isSmallScreen = screenHeight < 700;
+    final isLargeScreen = screenWidth > 400;
+
+    // Responsive padding and sizing
+    final horizontalPadding = screenWidth * 0.08;
+    final logoSize = isSmallScreen ? screenWidth * 0.10 : screenWidth * 0.12;
+    final titleFontSize = isSmallScreen
+        ? screenWidth * 0.07
+        : screenWidth * 0.08;
+    final headingFontSize = isSmallScreen
+        ? screenWidth * 0.08
+        : screenWidth * 0.09;
+    final inputWidth = screenWidth * 0.84;
+    final inputHeight = isSmallScreen
+        ? screenHeight * 0.055
+        : screenHeight * 0.065;
+    final socialButtonSize = isSmallScreen
+        ? screenWidth * 0.11
+        : screenWidth * 0.12;
 
     return Scaffold(
-      // Set background color for Scaffold to match the overall dark theme
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: screenWidth,
-          // Set height to screenHeight to ensure the background covers the whole screen
-          // even if content is less than screen height, allowing scroll if content overflows.
-          height: screenHeight,
-          child: Stack(
-            children: [
-              // --- Background Image ---
-              Positioned(
-                left: -screenWidth * 0.25,
-                bottom: screenHeight * 0.08,
-                child: SizedBox(
-                  width: screenWidth * 1.5,
-                  height: screenHeight * 1,
-                  child: Image.network(
-                    'assets/buzzme_login-.png',
-                    width: screenWidth * 0.9,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight:
+                  screenHeight -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
+            ),
+            child: Stack(
+              children: [
+                // Background Image
+                Positioned(
+                  left: -screenWidth * 0.20,
+                  bottom: isSmallScreen
+                      ? screenHeight * 0.02
+                      : screenHeight * 0.25,
+                  child: SizedBox(
+                    width: screenWidth * 1.5,
+                    height: screenHeight * 0.8,
+                    child: Image.asset(
+                      'assets/buzzme_login-.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
 
-              // --- Black Transparent Overlay ---
-              Positioned.fill(
-                child: Container(color: Colors.black.withOpacity(0.6)),
-              ),
+                // Black Transparent Overlay
+                Positioned.fill(
+                  child: Container(color: Colors.black.withOpacity(0.6)),
+                ),
 
-              // --- Main Content ---
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.08),
+                // Main Content
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min, // Use min to wrap content
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: screenHeight * 0.06),
-
-                      // --- Logo and Title ---
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: screenWidth * 0.12,
-                            height: screenWidth * 0.12,
-                            decoration: const BoxDecoration(
-                              color: Color(
-                                0xFFFFC107,
-                              ), // AppColors.primaryYellow
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.asset(
-                              'assets/splash_buzzme-removebg-preview (1).png', // Ensure this asset path is correct
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          SizedBox(width: screenWidth * 0.03),
-                          // Use Flexible to allow text to shrink if necessary
-                          Flexible(
-                            child: Text(
-                              'Buzz Me....',
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xFFFFC107),
-                                fontSize:
-                                    screenWidth *
-                                    0.08, // Font size scales with screen width
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow
-                                  .ellipsis, // Prevents overflow with "..."
-                            ),
-                          ),
-                        ],
+                      // Top spacing
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.02
+                            : screenHeight * 0.06,
                       ),
 
-                      SizedBox(height: screenHeight * 0.08),
-
-                      // --- Main Heading ---
-                      Text(
-                        'MAKE THE\nFIRST MOVE',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          color: const Color(0xFFFFC107),
-                          fontSize:
-                              screenWidth *
-                              0.09, // Font size scales with screen width
-                          fontWeight: FontWeight.bold,
-                          height: 1.2,
-                        ),
+                      // Logo and Title Section
+                      _buildLogoSection(
+                        screenWidth: screenWidth,
+                        logoSize: logoSize,
+                        titleFontSize: titleFontSize,
                       ),
 
-                      SizedBox(height: screenHeight * 0.06),
-
-                      // --- Input Fields ---
-                      CustomInputField(
-                        controller: _emailController, // Assign controller
-                        hintText: 'Email',
-                        width:
-                            screenWidth *
-                            0.84, // Width scales with screen width
-                        height:
-                            screenHeight *
-                            0.065, // Height scales with screen height
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.1
+                            : screenHeight * 0.1,
                       ),
 
-                      SizedBox(height: screenHeight * 0.025),
-
-                      CustomInputField(
-                        controller: _passwordController, // Assign controller
-                        hintText: 'Password',
-                        isPassword: true,
-                        width:
-                            screenWidth *
-                            0.84, // Width scales with screen width
-                        height:
-                            screenHeight *
-                            0.065, // Height scales with screen height
+                      // Main Heading
+                      _buildMainHeading(
+                        screenWidth: screenWidth,
+                        headingFontSize: headingFontSize,
                       ),
 
-                      SizedBox(height: screenHeight * 0.04),
-
-                      // --- Sign In Button ---
-                      CustomButton(
-                        text: 'Sign in',
-                        onPressed: () {
-                          // Authentication Logic
-                          final email = _emailController.text.trim();
-                          final password = _passwordController.text.trim();
-
-                          if (email == 'admin' && password == 'admin123') {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AdminBottomBar(),
-                              ),
-                            );
-                          } else {
-                            // Optionally, show a SnackBar for incorrect credentials
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //     content: Text('Invalid email or password.'),
-                            //     backgroundColor: Colors.red,
-                            //   ),
-                            // );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const BottomBarScreen(),
-                              ),
-                            );
-                          }
-                        },
-                        width:
-                            screenWidth *
-                            0.84, // Width scales with screen width
-                        height:
-                            screenHeight *
-                            0.065, // Height scales with screen height
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.08
+                            : screenHeight * 0.06,
                       ),
 
-                      SizedBox(height: screenHeight * 0.06),
-
-                      // --- Social Login Buttons ---
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SocialButton(
-                            icon: Icons.apple,
-                            size:
-                                screenWidth *
-                                0.12, // Size scales with screen width
-                          ),
-                          SocialButton(
-                            icon: Icons.facebook,
-                            size:
-                                screenWidth *
-                                0.12, // Size scales with screen width
-                          ),
-                          SocialButton(
-                            icon: Icons
-                                .g_mobiledata, // Using g_mobiledata as requested, or Icons.google
-                            size:
-                                screenWidth *
-                                0.12, // Size scales with screen width
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const BottomBarScreen(),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      // Input Fields Section
+                      _buildInputFields(
+                        screenHeight: screenHeight,
+                        inputWidth: inputWidth,
+                        inputHeight: inputHeight,
+                        isSmallScreen: isSmallScreen,
                       ),
 
-                      SizedBox(height: screenHeight * 0.03),
-
-                      // --- Terms and Privacy Policy ---
-                      Text(
-                        'By signing up, you agree to our terms.\nSee how we use your data in our privacy policy.',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          color: Colors.grey.shade400,
-                          fontSize:
-                              screenWidth *
-                              0.03, // Font size scales with screen width
-                        ),
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.01
+                            : screenHeight * 0.01,
                       ),
 
-                      SizedBox(height: screenHeight * 0.03), // Final spacing
+                      // Sign In Button
+                      _buildSignInButton(
+                        inputWidth: inputWidth,
+                        inputHeight: inputHeight * 0.8,
+                      ),
+
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.15
+                            : screenHeight * 0.15,
+                      ),
+
+                      // Social Login Buttons
+                      _buildSocialButtons(socialButtonSize: socialButtonSize),
+
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.02
+                            : screenHeight * 0.03,
+                      ),
+
+                      // Terms and Privacy Policy
+                      _buildTermsText(
+                        screenWidth: screenWidth,
+                        isSmallScreen: isSmallScreen,
+                      ),
+
+                      // Bottom spacing
+                      SizedBox(
+                        height: isSmallScreen
+                            ? screenHeight * 0.02
+                            : screenHeight * 0.03,
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoSection({
+    required double screenWidth,
+    required double logoSize,
+    required double titleFontSize,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: logoSize,
+          height: logoSize,
+          decoration: const BoxDecoration(
+            color: Color(0xFFFFC107),
+            shape: BoxShape.circle,
+          ),
+          child: ClipOval(
+            child: Image.asset(
+              'assets/splash_buzzme-removebg-preview (1).png',
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        SizedBox(width: screenWidth * 0.03),
+        Flexible(
+          child: Text(
+            'Buzz Me....',
+            style: GoogleFonts.poppins(
+              color: const Color(0xFFFFC107),
+              fontSize: titleFontSize,
+              fontWeight: FontWeight.bold,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMainHeading({
+    required double screenWidth,
+    required double headingFontSize,
+  }) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        'MAKE THE\nFIRST MOVE',
+        textAlign: TextAlign.center,
+        style: GoogleFonts.poppins(
+          color: const Color(0xFFFFC107),
+          fontSize: headingFontSize,
+          fontWeight: FontWeight.bold,
+          height: 1.2,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInputFields({
+    required double screenHeight,
+    required double inputWidth,
+    required double inputHeight,
+    required bool isSmallScreen,
+  }) {
+    final spacing = isSmallScreen ? screenHeight * 0.01 : screenHeight * 0.01;
+
+    return Column(
+      children: [
+        CustomInputField(
+          controller: _emailController,
+          hintText: 'Email',
+          width: inputWidth,
+          height: inputHeight,
+        ),
+        SizedBox(height: spacing),
+        CustomInputField(
+          controller: _passwordController,
+          hintText: 'Password',
+          isPassword: true,
+          width: inputWidth,
+          height: inputHeight,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSignInButton({
+    required double inputWidth,
+    required double inputHeight,
+  }) {
+    return CustomButton(
+      text: 'Sign in',
+      onPressed: () {
+        final email = _emailController.text.trim();
+        final password = _passwordController.text.trim();
+
+        if (email == 'admin' && password == 'admin123') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AdminDashboard()),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const IntroScreen()),
+          );
+        }
+      },
+      width: inputWidth,
+      height: inputHeight,
+    );
+  }
+
+  Widget _buildSocialButtons({required double socialButtonSize}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        SocialButton(
+          icon: Icons.apple,
+          size: socialButtonSize,
+          onPressed: () {
+            // Handle Apple login
+          },
+        ),
+        SocialButton(
+          icon: Icons.facebook,
+          size: socialButtonSize,
+          onPressed: () {
+            // Handle Facebook login
+          },
+        ),
+        SocialButton(
+          icon: Icons.g_mobiledata,
+          size: socialButtonSize,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const BottomBarScreen()),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTermsText({
+    required double screenWidth,
+    required bool isSmallScreen,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+      child: Text(
+        'By signing up, you agree to our terms.\nSee how we use your data in our privacy policy.',
+        textAlign: TextAlign.center,
+        style: GoogleFonts.poppins(
+          color: Colors.grey.shade400,
+          fontSize: isSmallScreen ? screenWidth * 0.028 : screenWidth * 0.03,
+          height: 1.3,
         ),
       ),
     );

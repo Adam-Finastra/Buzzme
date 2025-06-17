@@ -205,7 +205,7 @@ class EditProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           image: const DecorationImage(
-                            image: NetworkImage('assets/profile.png'),
+                            image: AssetImage('assets/profile.png'),
                             fit: BoxFit.cover,
                           ),
                         ),

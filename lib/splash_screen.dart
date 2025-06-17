@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor:
           AppColors.white, // Using a dark background from AppColors
       body: Center(
-        child: Image.network(
+        child: Image.asset(
           'assets/splash_buzzme-removebg-preview (1).png', // Your asset image path
 
           width: MediaQuery.of(context).size.width * 0.6,

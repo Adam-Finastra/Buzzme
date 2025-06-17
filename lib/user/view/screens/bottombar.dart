@@ -12,119 +12,6 @@ import 'package:buzzme/user/view/screens/like/liked_screen.dart';
 import 'package:buzzme/user/view/screens/premium/premium_screen.dart';
 import 'package:buzzme/user/view/screens/profile/profile_screen.dart';
 
-// class BottomBarScreen extends StatefulWidget {
-//   final int? selectedIndex;
-
-//   const BottomBarScreen({Key? key, this.selectedIndex = 0}) : super(key: key);
-
-//   @override
-//   State<BottomBarScreen> createState() => _BottomBarScreenState();
-// }
-
-// class _BottomBarScreenState extends State<BottomBarScreen> {
-//   int _currentIndex = 0;
-
-//   // List of screens to display
-//   final List<Widget> screens = [
-//     BuzzMeScreen(),
-//     const LikedScreen(),
-//     const PremiumScreen(),
-//     const ChatsScreen(),
-//     const ProfileScreen(),
-//   ];
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _currentIndex = widget.selectedIndex ?? 0;
-//   }
-
-//   void _onTabTapped(int index) {
-//     setState(() {
-//       _currentIndex = index;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return PopScope(
-//       canPop: _currentIndex == 0,
-//       onPopInvokedWithResult: (didPop, result) {
-//         if (!didPop && _currentIndex != 0) {
-//           setState(() {
-//             _currentIndex = 0;
-//           });
-//         }
-//       },
-//       child: Scaffold(
-//         backgroundColor: Colors.white,
-//         body: screens[_currentIndex],
-//         bottomNavigationBar: _buildCustomBottomBar(),
-//       ),
-//     );
-//   }
-
-//   Widget _buildCustomBottomBar() {
-//     return Container(
-//       height: 60,
-//       margin: const EdgeInsets.only(left: 20, right: 20, bottom: 18),
-//       decoration: BoxDecoration(
-//         color: Colors.black,
-//         borderRadius: BorderRadius.circular(30),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.white.withOpacity(0.1),
-//             blurRadius: 15,
-//             offset: const Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         children: [
-//           _buildNavItem(0, Icons.menu),
-//           _buildNavItem(1, Icons.favorite),
-//           _buildNavItem(2, Icons.diamond),
-//           _buildNavItem(3, Icons.chat),
-//           _buildNavItem(4, Icons.person),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget _buildNavItem(int index, IconData icon) {
-//     final bool isSelected = _currentIndex == index;
-
-//     return GestureDetector(
-//       onTap: () => _onTabTapped(index),
-//       child: Container(
-//         width: 50,
-//         height: 50,
-//         decoration: BoxDecoration(
-//           color: isSelected ? AppColors.primaryYellow : Colors.transparent,
-//           shape: BoxShape.circle,
-//           boxShadow: isSelected
-//               ? [
-//                   BoxShadow(
-//                     color: AppColors.primaryYellow.withOpacity(0.3),
-//                     blurRadius: 8,
-//                     offset: const Offset(0, 2),
-//                   ),
-//                 ]
-//               : null,
-//         ),
-//         child: Center(
-//           child: Icon(
-//             icon,
-//             size: 24,
-//             color: isSelected ? AppColors.black : AppColors.white,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class BottomBarScreen extends StatefulWidget {
   final int? selectedIndex;
 
@@ -179,14 +66,18 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     // --- Responsive Scaling Factor Calculation ---
-    // Using screenHeight for scale factor as bottom bar is vertically constrained
+    // Using iPhone 12 Pro height as baseline for smaller bottom bar
     final screenHeight = MediaQuery.of(context).size.height;
-    const double baseScreenHeight = 812.0; // iPhone 11 height, good baseline
+    const double baseScreenHeight = 844.0; // iPhone 12 Pro height
     double scaleFactor = screenHeight / baseScreenHeight;
     const double minScaleFactor =
-        0.85; // Prevent bottom bar from becoming too small
+        0.75; // Reduced from 0.85 to make bottom bar smaller
+    const double maxScaleFactor = 0.95; // Added max scale to prevent oversizing
+
     if (scaleFactor < minScaleFactor) {
       scaleFactor = minScaleFactor;
+    } else if (scaleFactor > maxScaleFactor) {
+      scaleFactor = maxScaleFactor;
     }
     // --- End Responsive Scaling Factor Calculation ---
 
@@ -213,22 +104,22 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      height: 60 * scaleFactor, // Scale height
+      height: 50 * scaleFactor, // Reduced from 60 to 50
       margin: EdgeInsets.only(
-        left: 20 * scaleFactor, // Scale margin
-        right: 20 * scaleFactor, // Scale margin
-        bottom: 18 * scaleFactor, // Scale margin
+        left: 16 * scaleFactor, // Reduced from 20 to 16
+        right: 16 * scaleFactor, // Reduced from 20 to 16
+        bottom: 12 * scaleFactor, // Reduced from 18 to 12
       ),
       decoration: BoxDecoration(
         color: AppColors.black, // Changed to AppColors.black for consistency
         borderRadius: BorderRadius.circular(
-          30 * scaleFactor,
+          25 * scaleFactor, // Reduced from 30 to 25
         ), // Scale border radius
         boxShadow: [
           BoxShadow(
             color: AppColors.white.withOpacity(0.1), // Using AppColors.white
-            blurRadius: 15 * scaleFactor, // Scale blur radius
-            offset: Offset(0, 4 * scaleFactor), // Scale offset
+            blurRadius: 12 * scaleFactor, // Reduced from 15 to 12
+            offset: Offset(0, 3 * scaleFactor), // Reduced from 4 to 3
           ),
         ],
       ),
@@ -254,8 +145,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     double scaleFactor,
   ) {
     final bool isSelected = _currentIndex == index;
-    final double itemSize = 50 * scaleFactor; // Scale item size
-    final double iconSize = 24 * scaleFactor; // Scale icon size
+    final double itemSize = 40 * scaleFactor; // Reduced from 50 to 40
+    final double iconSize = 20 * scaleFactor; // Reduced from 24 to 20
 
     return GestureDetector(
       onTap: () => _onTabTapped(index),
@@ -269,14 +160,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               ? [
                   BoxShadow(
                     color: AppColors.primaryYellow.withOpacity(0.3),
-                    blurRadius: 8 * scaleFactor, // Scale blur radius
-                    offset: Offset(0, 2 * scaleFactor), // Scale offset
+                    blurRadius: 6 * scaleFactor, // Reduced from 8 to 6
+                    offset: Offset(
+                      0,
+                      1.5 * scaleFactor,
+                    ), // Reduced from 2 to 1.5
                   ),
                 ]
               : null,
         ),
         child: Center(
-          child: Image.network(
+          child: Image.asset(
             isSelected ? selectedImagePath : unselectedImagePath,
             width: iconSize, // Set scaled width for the image
             height: iconSize, // Set scaled height for the image

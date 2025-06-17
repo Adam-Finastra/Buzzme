@@ -22,7 +22,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     // Base font size for better responsiveness
-    final double baseFontSize = screenWidth * 0.04;
+    final double baseFontSize = screenWidth * 0.035;
 
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
@@ -56,17 +56,17 @@ class _PremiumScreenState extends State<PremiumScreen> {
                   Text(
                     'Get buzz diamond',
                     style: GoogleFonts.poppins(
-                      fontSize: baseFontSize * 2, // Adjusted font size
+                      fontSize: baseFontSize * 1.5, // Adjusted font size
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                     ),
                   ),
 
-                  SizedBox(height: screenHeight * 0.05),
+                  SizedBox(height: screenHeight * 0.03),
 
                   // Star icon
                   Container(
-                    width: screenWidth * 0.2,
+                    width: screenWidth * 0.1,
                     height: screenWidth * 0.2,
                     decoration: const BoxDecoration(
                       color: AppColors.primaryYellow,
@@ -84,7 +84,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                   Text(
                     'Unlimited stars',
                     style: GoogleFonts.poppins(
-                      fontSize: baseFontSize * 1.5, // Adjusted font size
+                      fontSize: baseFontSize * 1.2, // Adjusted font size
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                     ),
@@ -170,8 +170,8 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       );
                       // Implement your payment logic here based on _selectedCardIndex
                     },
-                    width: screenWidth * 0.8,
-                    height: screenHeight * 0.07,
+                    width: screenWidth * 0.5,
+                    height: screenHeight * 0.04,
                   ),
 
                   SizedBox(height: screenHeight * 0.02),
@@ -266,7 +266,7 @@ class PricingCard extends StatelessWidget {
                 child: Text(
                   'MOST POPULAR',
                   style: GoogleFonts.poppins(
-                    fontSize: screenWidth * 0.025,
+                    fontSize: screenWidth * 0.015,
                     fontWeight: FontWeight.bold,
                     color: AppColors.black,
                   ),

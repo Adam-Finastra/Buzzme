@@ -149,7 +149,7 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
               width: double.infinity,
               padding: EdgeInsets.symmetric(
                 horizontal: getResponsiveSize(context, screenWidth * 0.05),
-                vertical: getResponsiveSize(context, screenHeight * 0.02),
+                vertical: getResponsiveSize(context, screenHeight * 0.035),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,14 +205,18 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                       child: Row(
                         children: [
                           // Reject button
-                          Expanded(
+                          SizedBox(
+                            width: getResponsiveSize(
+                              context,
+                              screenWidth * 0.22,
+                            ),
                             child: GestureDetector(
                               onTap: () => _handleSwipe(false),
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: getResponsiveSize(
                                     context,
-                                    screenHeight * 0.015,
+                                    screenHeight * 0.004,
                                   ),
                                 ),
                                 decoration: BoxDecoration(
@@ -231,13 +235,13 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                                       color: Colors.red,
                                       size: getResponsiveSize(
                                         context,
-                                        screenWidth * 0.045,
+                                        screenWidth * 0.055,
                                       ),
                                     ),
                                     SizedBox(
                                       width: getResponsiveSize(
                                         context,
-                                        screenWidth * 0.015,
+                                        screenWidth * 0.01,
                                       ),
                                     ),
                                     Text(
@@ -260,19 +264,23 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                           SizedBox(
                             width: getResponsiveSize(
                               context,
-                              screenWidth * 0.03,
+                              screenWidth * 0.4,
                             ),
                           ),
 
                           // Like button
-                          Expanded(
+                          SizedBox(
+                            width: getResponsiveSize(
+                              context,
+                              screenWidth * 0.25,
+                            ),
                             child: GestureDetector(
                               onTap: () => _handleSwipe(true),
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: getResponsiveSize(
                                     context,
-                                    screenHeight * 0.015,
+                                    screenHeight * 0.004,
                                   ),
                                 ),
                                 decoration: BoxDecoration(
@@ -300,7 +308,7 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                                     SizedBox(
                                       width: getResponsiveSize(
                                         context,
-                                        screenWidth * 0.015,
+                                        screenWidth * 0.02,
                                       ),
                                     ),
                                     Icon(
@@ -308,7 +316,7 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                                       color: Colors.amber,
                                       size: getResponsiveSize(
                                         context,
-                                        screenWidth * 0.045,
+                                        screenWidth * 0.055,
                                       ),
                                     ),
                                   ],
@@ -357,10 +365,10 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: getResponsiveSize(
                                 context,
-                                screenWidth * 0.05,
+                                screenWidth * 0.04,
                               ),
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              fontWeight: FontWeight.normal,
+                              color: const Color.fromARGB(255, 99, 96, 96),
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.015),
@@ -369,7 +377,7 @@ class _BuzzMeScreenState extends State<BuzzMeScreen> {
                           Text(
                             'Interests',
                             style: GoogleFonts.poppins(
-                              fontSize: screenWidth * 0.04,
+                              fontSize: screenWidth * 0.03,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
@@ -550,7 +558,7 @@ class _ProfileCardState extends State<ProfileCard>
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                child: Image.network(
+                child: Image.asset(
                   widget.profile.imageUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
@@ -577,21 +585,21 @@ class _ProfileCardState extends State<ProfileCard>
                       ),
                     );
                   },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      color: Colors.grey[200],
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                              : null,
-                          color: const Color(0xFFFFD700),
-                        ),
-                      ),
-                    );
-                  },
+                  // loadingBuilder: (context, child, loadingProgress) {
+                  //   if (loadingProgress == null) return child;
+                  //   return Container(
+                  //     color: Colors.grey[200],
+                  //     child: Center(
+                  //       child: CircularProgressIndicator(
+                  //         value: loadingProgress.expectedTotalBytes != null
+                  //             ? loadingProgress.cumulativeBytesLoaded /
+                  //                   loadingProgress.expectedTotalBytes!
+                  //             : null,
+                  //         color: const Color(0xFFFFD700),
+                  //       ),
+                  //     ),
+                  //   );
+                  // },
                 ),
               ),
 
@@ -690,7 +698,7 @@ class _ProfileCardState extends State<ProfileCard>
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Image.network(
+                    Image.asset(
                       'assets/shape-removebg-preview.png',
                       width: getResponsiveSize(widget.screenWidth * 0.13),
                     ),

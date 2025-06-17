@@ -233,7 +233,7 @@ class RejectedProfileCard extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               // Profile image
-              Image.network(
+              Image.asset(
                 profile.imageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
@@ -248,21 +248,21 @@ class RejectedProfileCard extends StatelessWidget {
                     ),
                   );
                 },
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    color: Colors.grey[300],
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                            : null,
-                        color: AppColors.primaryYellow,
-                      ),
-                    ),
-                  );
-                },
+                // loadingBuilder: (context, child, loadingProgress) {
+                //   if (loadingProgress == null) return child;
+                //   return Container(
+                //     color: Colors.grey[300],
+                //     child: Center(
+                //       child: CircularProgressIndicator(
+                //         value: loadingProgress.expectedTotalBytes != null
+                //             ? loadingProgress.cumulativeBytesLoaded /
+                //                   loadingProgress.expectedTotalBytes!
+                //             : null,
+                //         color: AppColors.primaryYellow,
+                //       ),
+                //     ),
+                //   );
+                // },
               ),
 
               // Gradient overlay

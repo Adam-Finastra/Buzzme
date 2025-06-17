@@ -113,7 +113,7 @@ class CustomButton extends StatelessWidget {
           text,
           style: GoogleFonts.poppins(
             color: textColor,
-            fontSize: MediaQuery.of(context).size.width * 0.045,
+            fontSize: MediaQuery.of(context).size.width * 0.040,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -140,64 +140,9 @@ class HexagonBackground extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(assetPath),
+            image: AssetImage(assetPath),
             fit: BoxFit.contain, // Keeps transparent edges visible
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// Action Button Widget
-class ActionButton extends StatelessWidget {
-  final IconData icon;
-  final Color backgroundColor;
-  final Color iconColor;
-  final String text;
-  final VoidCallback onTap;
-
-  const ActionButton({
-    Key? key,
-    required this.icon,
-    required this.backgroundColor,
-    required this.iconColor,
-    required this.text,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.06,
-          vertical: screenWidth * 0.03,
-        ),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(color: Colors.grey.withOpacity(0.3)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: iconColor, size: screenWidth * 0.05),
-            SizedBox(width: screenWidth * 0.02),
-            Text(
-              text,
-              style: GoogleFonts.poppins(
-                color: iconColor == AppColors.white
-                    ? AppColors.black
-                    : iconColor,
-                fontSize: screenWidth * 0.02,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
         ),
       ),
     );
